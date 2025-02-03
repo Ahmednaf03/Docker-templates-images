@@ -21,15 +21,15 @@ For best practice, I have implemented several security measures to ensure the ap
 
 ## Creating a Non-Root User:
 
-A new user and group are created specifically to run the application. This practice ensures that the application doesn't run with root privileges, which can expose the system to security vulnerabilities.
+A new user and group are created specifically to run the application. Running the application as a non-root user helps minimize security vulnerabilities by ensuring that the application doesn’t have root privileges, which can expose the system to potential threats.
 
 ## Changing Ownership:
 
-The ownership of the application directory is changed to the newly created user. This step ensures that the application has the necessary permissions to access and modify the files within its working directory.
+we temporarily switch to the root user to change the ownership of the application directory. This step ensures that the application has the necessary permissions to access and modify the files within its working directory, preventing errors such as EACCES: permission denied.
 
 ## Running as Non-Root User:
 
-The application is configured to run as the non-root user. By avoiding running the application as root, we reduce the risk of exploiting vulnerabilities that could grant unauthorized access to the host system.
+Once the necessary ownership changes are made, we switch back to the non-root user to run the application. This practice ensures that, after the initial setup, the application continues to run with limited permissions, thereby enhancing security and protecting the host system from potential vulnerabilities.
 
 These steps ensures the host machine and the application not being taken advantage of possible vulnerabilities with root access
 
