@@ -5,6 +5,7 @@ Clone it and use it on the fly
 
 Pre Req ;
 Docker installed Locally CLI or GUI based on preference 
+nodejs for Run-Time
 
 to Build the image and run the container 
 Docker compose up --build / this command will spin up the image and create container utilising the compose yaml file 
