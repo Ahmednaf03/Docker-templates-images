@@ -1,33 +1,28 @@
-# specify the version of docker-compose
+# version of docker-compose
 version: "1.2"
 
-# define the services/containers to be run
+#services/containers to be run
 services:
-  # define the frontend service
-  # we can use any name for the service. A standard naming convention is to use "web" for the frontend
+  # name can be anything but standard convention is web,api,db
   web:
-    # we use depends_on to specify that service depends on another service
-    # in this case, we specify that the web depends on the api service
-    # this means that the api service will be started before the web service
+    # depends_on is used to specify one service relies on another
+    # in this case, web depends on the api service and ensures to run the api container ahead 
     depends_on: 
       - api
-    # specify the build context for the web service
-    # this is the directory where the Dockerfile for the web service is located
+    # specify the build context for the web service wher ethe dockerfile is located 
     build: ./frontend
-    # specify the ports to expose for the web service
-    # the first number is the port on the host machine
-    # the second number is the port inside the container
+    # port used to map the port from host to container 
+    # first 5173 is host port and second 5173 is container port
     ports:
       - 5173:5173
-    # specify the environment variables for the web service
-    # these environment variables will be available inside the container
+    # environment variables needed for the web service
+    # this can be accessed on the container
     environment:
       VITE_API_URL: http://localhost:8000
 
-    # this is for docker compose watch mode
-    # anything mentioned under develop will be watched for changes by docker compose watch and it will perform the action mentioned
+    # develop is used to monitor changes on target files and perform an action as mentioned
     develop:
-      # we specify the files to watch for changes
+      # specify the files to watch for changes
       watch:
         # it'll watch for changes in package.json and package-lock.json and rebuild the container if there are any changes
         - path: ./frontend/package.json
@@ -45,21 +40,18 @@ services:
     depends_on: 
       - db
 
-    # specify the build context for the api service
+    # build context for the api service
     build: ./backend
     
-    # specify the ports to expose for the api service
-    # the first number is the port on the host machine
-    # the second number is the port inside the container
+    # same as front end
     ports: 
       - 8000:8000
 
-    # specify environment variables for the api service
-    # for demo purposes, we're using a local mongodb instance
+    # environment variables needed for the api service
     environment: 
-      DB_URL: mongodb://db/anime
+      DB_URL: mongodb://db/sample
     
-    # establish docker compose watch mode for the api service
+    # docker compose watch mode for the api service
     develop:
       # specify the files to watch for changes
       watch:
@@ -76,24 +68,19 @@ services:
 
   # define the db service
   db:
-    # specify the image to use for the db service from docker hub. If we have a custom image, we can specify that in this format
-    # In the above two services, we're using the build context to build the image for the service from the Dockerfile so we specify the image as "build: ./frontend" or "build: ./backend".
-    # but for the db service, we're using the image from docker hub so we specify the image as "image: mongo:latest"
-    # you can find the image name and tag for mongodb from docker hub here: https://hub.docker.com/_/mongo
+    # the image to use for the db service from docker hub
     image: mongo:latest
 
-    # specify the ports to expose for the db service
-    # generally, we do this in api service using mongodb atlas. But for demo purposes, we're using a local mongodb instance
-    # usually, mongodb runs on port 27017. So we're exposing the port 27017 on the host machine and mapping it to the port 27017 inside the container
+    # mapping
     ports:
       - 27017:27017
 
-    # specify the volumes to mount for the db service
-    # we're mounting the volume named "anime" inside the container at /data/db directory
-    # this is done so that the data inside the mongodb container is persisted even if the container is stopped
+    # the volumes to mount for the db service
+    # by doing this we can ensure the data being persisted even after the termination of hte container 
+    # we use "sample" volume for it
     volumes:
       - sample:/data/db
 
-# define the volumes to be used by the services
+# the volumes to be used by the services
 volumes:
   sample:
