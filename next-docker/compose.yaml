@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  frontend:
+    
+    # build context of the dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    # expose port 3000 from the container to host
+    ports:
+      - 3000:3000
+    
+    # ensure db runs before the frontend
+    depends_on:
+      - db
+    
+    # udocker compose to watch for changes and rebuild the container
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./next.config.js
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: .
+          target: /app
+          action: sync
+    
+    # environment variables
+    environment:
+      # we're using MongoDB atlas so we need to pass in the connection string
+      DB_URL: mongodb://db/tasked
+
+  # mongo container
+  db:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    # creation of the volume 
+    volumes:
+      - tasked:/data/db
+# volume mounted with the container
+volumes:
+  tasked:
