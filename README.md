@@ -32,7 +32,7 @@ if the container already exists
   docker start vite-docker-manual
 ```
 
-for building viacompose file 
+for building via compose file 
 
 ```bash 
 docker compose up --build
