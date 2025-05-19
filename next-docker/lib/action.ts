@@ -35,3 +35,13 @@ console.log(params);
     console.log(err);
   }
 }
+
+export async function deleteData(task: string) {
+  await dbConnect();
+  try {
+    const deletedTask = await Task.findOneAndDelete({ task });
+    return deletedTask;
+  } catch (err) {
+    console.log(err);
+  }
+}

@@ -1,0 +1,23 @@
+version: "1.2"
+
+services:
+  ubuntu1:
+    image: ubuntu:latest
+    container_name: ubuntu_container_1
+    volumes:
+      - home:/home
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+  ubuntu2:
+    image: ubuntu:latest
+    container_name: ubuntu_container_2
+    volumes:
+      - home:/home/user
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+volumes:
+  home:

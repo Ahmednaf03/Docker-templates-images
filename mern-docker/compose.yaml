@@ -75,8 +75,7 @@ services:
     ports:
       - 27017:27017
 
-    # the volumes to mount for the db service
-    # by doing this we can ensure the data being persisted even after the termination of hte container 
+    
     # we use "sample" volume for it
     volumes:
       - sample:/data/db
