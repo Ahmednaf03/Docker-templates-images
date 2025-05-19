@@ -76,7 +76,7 @@ or we can create it in compose file itself
    docker tag name yourusername/image:ver
    docker push username/image:ver
 ```
-
+ensure the image is tagged properly to avoid ambiguity
 
 # Security Best Practices
 For best practice, I have implemented several security measures to ensure the application runs with the appropriate permissions and to mitigate potential risks. Here's an overview of the measures:
