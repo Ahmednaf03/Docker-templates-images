@@ -22,23 +22,37 @@ git clone https://github.com/Ahmednaf03/Docker-templates-images
 
   command for manual one 
 ```bash 
-  docker build -t projectname:ver
-  docker run image name 
+  docker build -t docker-vite
+  docker run -p 5174:5174 vite-docker-manual 
 ``` 
 
 if the container already exists 
 
 ```bash 
-  docker start container name or id
+  docker start vite-docker-manual
 ```
 
+for building viacompose file 
+
+```bash 
+docker compose up --build
+```
+
+for running and using compose watch for FS
+
+```bash
+ docker compose up 
+ docker compose watch
+ ```
+
+ note: ensure you are in the correct file directory 
 ## MERN Docker template 
 
    in the case of an mern application we have to provide dockerfile for both frontend and the backend we tie and/or automate them together in the compose file and for the db i have leveraged the global mongo image locally establishing the db is also possible 
 
 ## Nextjs Docker template 
    
-   Nextjs is pretty straightforward just as MERN dedicated services can be defined inside the compose file along with their build context and their dockerfile location 
+   Nextjs is pretty straightforward just as MERN dedicated services can be defined inside the compose file along with their build context and their dockerfile location in case of server actions no seperate service needed
 
 ## Concurrent edit from host to container 
   
