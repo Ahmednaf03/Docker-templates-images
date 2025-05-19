@@ -69,6 +69,15 @@ or we can create it in compose file itself
 
 2nd and desired way is using docker compose watch which is also implemented in all of the above
 
+## Push the image to your registry 
+
+```bash 
+   docker login 
+   docker tag name yourusername/image:ver
+   docker push username/image:ver
+```
+
+
 # Security Best Practices
 For best practice, I have implemented several security measures to ensure the application runs with the appropriate permissions and to mitigate potential risks. Here's an overview of the measures:
 
