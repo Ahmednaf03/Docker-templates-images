@@ -1,0 +1,88 @@
+					                        Docker
+Docker is an open-source platform that automates the deployment, scaling, and management of applications within lightweight, portable containers. 	
+Container:
+Container encapsulates an application and its dependencies, allowing it to run consistently across different computing environments. 
+Docker uses containerization to package applications. Unlike virtual machines that require a full OS, containers share the host OS kernel but run as isolated processes. This makes containers lightweight and fast.
+A running instance of an image. A container starts from an image, executes a specific application, and can be stopped or paused
+
+Images:
+Read-only templates used to create containers. An image may include an application, libraries, and dependencies.
+
+Docker engine:
+The core component that runs and manages the containers. It consists of a server, REST API, and a command-line interface (CLI).
+
+Dockerfile:
+A file containing a set of instructions to build a Docker image. It defines the application's environment and configuration.
+Eg Dockerfile:
+FROM node:14               # Use the official Node.js image as a base
+WORKDIR /usr/src/app       # Set the working directory
+COPY package*.json ./      # Copy package.json files
+RUN npm install             # Install app dependencies
+COPY . .                    # Copy the app source code
+EXPOSE 8080                 # Expose port 8080
+CMD ["node", "app.js"]     # Command to run the app
+
+
+Basic docker commands:
+docker version 			- shows current version
+docker info 			- full details 
+docker ps			- shows running containers
+docker ps -a			- all containers
+docker images 			- list all the images 
+docker start {container id/name} - to start an existing container 
+docker stop {container id/name} - to stop running container 
+docker rm {container id/name} – to remove an existing container 
+docker rmi {image name/id} 	- to remove an existing image  
+docker run {image name/id}        - to build and start a container
+docker pull {image name:tag} 	- to pull an image from registry 
+docker build -t {container id/name} – build and tag an image from dockerfile 
+
+Intermediate commands:
+docker run -it {image name/id} /bash/bin - to run a new container interactively with bash shell
+docker run -d {image name/id}		- to run a container in detached mode
+docker run -it -v volumename:/data img name - run a container with named volume 
+docker run -it -v $(pwd):/app img name 	            - run a container with bind mount host to container
+docker run -p 3000:3000 img name 	      - run a container with port mapping 
+
+docker container prune 			- to remove all the stopped containers
+docker tag {image name/id} username/image name:ver – convention to push img to hub 
+docker push username/image name:ver  - to push am image to the registry/hub
+docker image image prune -a 		 - remove all unused images 
+docker inspect username/image name:ver  -  inspect metadata of image
+docker history username/image name:ver  - image history/ layered changes 
+
+
+
+
+Volume: 
+A volume is a persistent storage mechanism used in Docker to keep data independent of container lifecycle.
+It allows containers to share or retain data across restarts, making it ideal for databases, logs,
+and configurations.
+
+docker volume {name}			     - create a new volume 
+docker volume ls 			     - list all volumes 
+docker volume inspect			     - inspect volume details 
+docker volume rm			     - remove a volume 
+docker volume prune 			     - remove all unused volume 
+
+Compose:
+Compose is a tool that helps define and manage multi-container Docker applications using a docker-compose.yml file.
+It simplifies deployments, networking, and service orchestration for complex environments.
+docker compose up 			     - run multiple containers
+docker compose up -d 			     - in detached mode
+docker compose down 			     - stop and remove containers
+docker compose restart 			     - restart all the containers within compose
+docker compose ps 			     - list running compose services
+docker compose -d –scale app=3	     - scale services 
+
+services:
+  app1:
+    image: ubuntu:latest			    - interactive mode in compose 
+    stdin_open: true
+    tty: true
+
+docker commit {container id/name}    	   -save change made in container to new image 
+docker save img name -o img name.tar tar -xvf img name.tar – extract image meta-data and save 
+docker tag img name new img name:ver 	-  give new label to existing image 
+docker exec -it container name/id  /bin/bash	- enter into running container with shell 
+
